@@ -32,7 +32,7 @@ class Lexer:
                 self.add_token(Token(grammar.HTML, self.html_buffer))
                 self.html_buffer = ""
 
-            
+            self.add_token(Token(grammar.OPEN_BRACKET))
 
             # skip opening brackets
             self.pos += 2
@@ -71,6 +71,7 @@ class Lexer:
 
             # skip closing brackets
             self.pos += 2
+            self.add_token(Token(grammar.CLOSED_BRACKET))
         else:
             # html token
             self.html_buffer += self.advance()
