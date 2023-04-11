@@ -87,14 +87,14 @@ class Lexer:
             case "import":
                 return Token(grammar.IMPORT)
             case _:
-                return Token(grammar.ERROR, f"Keyword {value} not found.")
+                return Token(grammar.ERROR, f"[Lexer] Keyword {value} not found.")
 
 
     def extension(self, value):
         if value in ["upper", "lower", "quotes", "single-quotes", "double-quotes", "escape"]:
             return Token(grammar.EXTENSION, value)
         else:
-            return Token(grammar.ERROR, f"Extension type {value} not found")
+            return Token(grammar.ERROR, f"[Lexer] Extension type {value} not found")
 
 
     def variable(self, start_c):
