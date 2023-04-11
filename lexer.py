@@ -1,4 +1,5 @@
 from token import Token
+import grammar
 
 
 class Lexer:
@@ -6,13 +7,19 @@ class Lexer:
         self.text = text
         self.pos = 0
         self.tokens = []
+        self.html_buffer = ""
 
     def scan_tokens(self):
         while self.pos < len(self.text):
             self.scan_token()
 
+        # any remaining html characters are stored in a HTML token
+        if len(self.html_buffer) > 0: 
+            self.add_token(Token(grammar.HTML, self.html_buffer))
+            self.html_buffer = ""
+
         # add special token to indicate end of file
-        self.add_token(Token("EOF"))
+        self.add_token(Token(grammar.EOF))
 
         return self.tokens
 
@@ -20,6 +27,13 @@ class Lexer:
     def scan_token(self):
         # inside armadillo code
         if self.current() == '{' and self.peek() == '{':
+            # group all previously seen html characters into a token
+            if len(self.html_buffer) > 0: 
+                self.add_token(Token(grammar.HTML, self.html_buffer))
+                self.html_buffer = ""
+
+            
+
             # skip opening brackets
             self.pos += 2
 
@@ -29,7 +43,7 @@ class Lexer:
 
                 match c:
                     # required
-                    case "!": self.add_token(Token("REQUIRED"))
+                    case "!": self.add_token(Token(grammar.REQUIRED))
                 
                     # keyword token
                     case "#":
@@ -59,26 +73,27 @@ class Lexer:
             self.pos += 2
         else:
             # html token
-            self.add_token(Token("HTML", self.advance()))
+            self.html_buffer += self.advance()
+            #self.add_token(Token("HTML", self.advance()))
 
 
     def keyword(self, value):
         match value:
             case "foreach":
-                return Token("FOREACH")
+                return Token(grammar.FOREACH)
             case "end":
-                return Token("END")
+                return Token(grammar.END)
             case "import":
-                return Token("IMPORT")
+                return Token(grammar.IMPORT)
             case _:
-                return Token("ERROR", f"Keyword {value} not found.")
+                return Token(grammar.ERROR, f"Keyword {value} not found.")
 
 
     def extension(self, value):
         if value in ["upper", "lower", "quotes", "single-quotes", "double-quotes", "escape"]:
-            return Token("EXTENSION", value)
+            return Token(grammar.EXTENSION, value)
         else:
-            return Token("ERROR", f"Extension type {value} not found")
+            return Token(grammar.ERROR, f"Extension type {value} not found")
 
 
     def variable(self, start_c):
@@ -86,10 +101,10 @@ class Lexer:
         while self.current() not in [' ', '}', ':']:
             c = self.advance()
             if c == '.':
-                return Token("PARENT", value)
+                return Token(grammar.PARENT, value)
 
             value += c
-        return Token("VAR", value)
+        return Token(grammar.VAR, value)
 
 
     def peek(self):
