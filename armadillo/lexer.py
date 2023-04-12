@@ -1,5 +1,5 @@
-from token import Token
-import grammar
+from armadillo.token import Token
+from armadillo import grammar
 
 
 class Lexer:
