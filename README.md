@@ -97,6 +97,7 @@ Below is an example armadillo file demonstrating the main features.
     <li><a href={{webpages.link:quotes}}>{{webpages.title:upper}}</a></li>
     {{#end}}
   </ul>
+  <p>Article by {{author:upper}}</p>
 </body>
 </html>
 ```
