@@ -5,6 +5,8 @@ Armadillo is a static HTML page generator based from the armadillo syntax.
 - ```parser.py``` parses the template file into a syntax tree and symbol table
 - ```compiler.py``` complies the syntax tree and data json file and compiles them into a static HTML page
 
+<br>
+
 ## Language Definition
 
 ---
