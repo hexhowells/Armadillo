@@ -15,8 +15,6 @@ All variables are made using the double curly brace notation
 > <tag>{{title}}</tag>
 > ```
 
-Keywords in Armadillo are indicated by a preceding ```#``` operator
-
 ---
 Variables can be modified using extensions
 
@@ -62,6 +60,8 @@ Blocks of HTML can be repeated using a loop. items from within the block are acc
 > {{#end}}
 > </ul>
 > ```
+
+Keywords in Armadillo are indicated by a preceding ```#``` operator
 
 ---
 
