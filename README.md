@@ -73,3 +73,51 @@ Required variables can be specified using the ```!``` operator
 > ```html
 > <tag>{{!title}}</tag>
 > ```
+
+---
+
+### Example Armadillo file
+```html
+<!doctype html>
+
+<html lang="en">
+<head>
+  <title>Example Armadillo Page</title>
+</head>
+
+<body>
+  <h1>{{title}}</h1>
+
+  <h2>List of webpages</h2>
+  <ul class="big-list">
+    {{#foreach webpages}}
+    <li><a href={{webpages.link:quotes}}>{{webpages.title:upper}}</a></li>
+    {{#end}}
+  </ul>
+</body>
+</html>
+```
+
+The variables declared in the template can be assigned using a .json data file
+```json
+{
+  "year": "2023",
+  "webpages":
+  [
+    {
+      "link": "https://www.google.com/",
+      "title": "Google search engine"
+    },
+    {
+      "link": "https://github.com/",
+      "title": "Github webpage"
+    },
+    {
+      "link": "https://news.ycombinator.com/news",
+      "title": "Hacker News forum"
+    }
+  ],
+  "author": "HexHowells"
+}
+
+```
