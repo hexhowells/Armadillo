@@ -9,8 +9,6 @@ Armadillo is a static HTML page generator based from the armadillo syntax.
 
 ## Language Definition
 
----
-
 All variables are made using the double curly brace notation
 
 > ``` html
@@ -46,6 +44,13 @@ Extensions can be chained together:
 <tag>{{title:upper:quotes}}</tag>
 ```
 
+The following extensions are currently supported:
+- upper
+- lower
+- quotes
+- single-quotes
+- escape
+
 ---
 
 Blocks of HTML can be repeated using a loop. items from within the block are accessed using the ```.``` operator.
@@ -60,7 +65,7 @@ Blocks of HTML can be repeated using a loop. items from within the block are acc
 
 ---
 
-HTML can be imported from another file and included in the template
+**(NOT YET IMPLEMENTED)** HTML can be imported from another file and included in the template 
 
 > ```html
 > {{#import header}}
@@ -70,15 +75,11 @@ HTML can be imported from another file and included in the template
 
 ---
 
-Required variables can be specified using the ```!``` operator
+<br>
 
-> ```html
-> <tag>{{!title}}</tag>
-> ```
+## Example Armadillo file
 
----
-
-### Example Armadillo file
+Below is an example armadillo file demonstrating the main features.
 ```html
 <!doctype html>
 
@@ -100,7 +101,7 @@ Required variables can be specified using the ```!``` operator
 </html>
 ```
 
-The variables declared in the template can be assigned using a .json data file
+The variables declared in the template can be assigned using a .json data file.
 ```json
 {
   "year": "2023",
@@ -122,4 +123,27 @@ The variables declared in the template can be assigned using a .json data file
   "author": "HexHowells"
 }
 
+```
+
+This produces the following:
+```html
+<!doctype html>
+
+<html lang="en">
+<head>
+  <title>Example Armadillo Page</title>
+</head>
+
+<body>
+  <h1>Web links for 2023</h1>
+
+  <h2>List of Web Links</h2>
+  <ul class="big-list">
+    <li><a href="https://www.google.com/">GOOGLE SEARCH ENGINE</a></li>
+    <li><a href="https://github.com/">GITHUB WEBPAGE</a></li>
+    <li><a href="https://news.ycombinator.com/news">HACKER NEWS FORUM</a></li>
+  </ul>
+  <p>Article by HEXHOWELLS</p>
+</body>
+</html>
 ```
