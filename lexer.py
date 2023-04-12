@@ -41,33 +41,8 @@ class Lexer:
                 # get next character
                 c = self.advance()
 
-                match c:
-                    # required
-                    case "!": self.add_token(Token(grammar.REQUIRED))
-                
-                    # keyword token
-                    case "#":
-                        value = ""
-                        while self.current() not in [' ', '}']:
-                            value += self.advance()
-
-                        keyword_token = self.keyword(value)
-                        self.add_token(keyword_token)
-
-                    # extension token
-                    case ":":
-                        value = ""
-                        while self.current() not in [' ', '}', ':']:
-                            value += self.advance()
-
-                        extension_token = self.extension(value)
-                        self.add_token(extension_token)
-
-                    # skip whitespace
-                    case " ": continue
-
-                    # variable or parent
-                    case _: self.add_token(self.variable(c))
+                # process armadillo code
+                self.process_armadillo(c)
 
             # skip closing brackets
             self.pos += 2
@@ -76,6 +51,36 @@ class Lexer:
             # html token
             self.html_buffer += self.advance()
             #self.add_token(Token("HTML", self.advance()))
+
+
+    def process_armadillo(self, c):
+        match c:
+            # required
+            case "!": self.add_token(Token(grammar.REQUIRED))
+        
+            # keyword token
+            case "#":
+                value = ""
+                while self.current() not in [' ', '}']:
+                    value += self.advance()
+
+                keyword_token = self.keyword(value)
+                self.add_token(keyword_token)
+
+            # extension token
+            case ":":
+                value = ""
+                while self.current() not in [' ', '}', ':']:
+                    value += self.advance()
+
+                extension_token = self.extension(value)
+                self.add_token(extension_token)
+
+            # skip whitespace
+            case " ": pass
+
+            # variable or parent
+            case _: self.add_token(self.variable(c))
 
 
     def keyword(self, value):
