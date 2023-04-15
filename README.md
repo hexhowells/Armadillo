@@ -1,3 +1,5 @@
+<img src="https://github.com/hexhowells/Armadillo/blob/main/logo.png" width=50%>
+
 # Armadillo
 
 Armadillo is a static HTML page generator based from the armadillo syntax.
