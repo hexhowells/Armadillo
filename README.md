@@ -58,7 +58,7 @@ Blocks of HTML can be repeated using a loop. items from within the block are acc
 > ```html
 > <ul>
 > {{#foreach item}}
-> <li class={{item-class:quotes}}>{{item.itemname}}</li>
+> <li class={{item.class:quotes}}>{{item.itemname}}</li>
 > {{#end}}
 > </ul>
 > ```
