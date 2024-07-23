@@ -91,7 +91,7 @@ Below is an example armadillo file demonstrating the main features.
 </head>
 
 <body>
-  <h1>{{title}}</h1>
+  <h1>Web links for {{year}}</h1>
 
   <h2>List of webpages</h2>
   <ul class="big-list">
